@@ -1,0 +1,383 @@
+PARSER_BEGIN(Buena)
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Buena
+{
+    static List<String> lista = new ArrayList<String>();
+    public static void main(String[] args) throws ParseException
+    {
+        try
+        {
+            Buena parser = new Buena(System.in);
+            parser.Inicio();
+        }
+        catch (ParseException e)
+        {
+            System.out.println("Error de compilación: " + e.getMessage());
+        }
+    }
+}
+PARSER_END(Buena)
+SKIP :
+{
+    " "
+  | "\t"
+  | "\r\n" 
+  | "\r" 
+  | "\n" 
+}
+TOKEN : 
+{<OperadoresAritmeticos : ("+"|"-"|"*"|"/"|"%")>
+  {System.out.println("OPERADORES ARITMETICOS -->" + image);}
+}
+TOKEN :
+{<OperadoresLogicos : ("&&"|"||"|"!"|"and"|"or"|"not")>
+  {System.out.println("OPERADORES LOGICOS -->\t" + image);}
+}
+TOKEN :
+{<ComparacionLogica : ("=="|"!="|">="|"<="|">"|"<")> 
+  {System.out.println("OPERADORES COMPARACION LOGICA -->\t" + image);}
+}
+TOKEN :
+{<AlteraTexto : ("toLowerCase"|"toUpperCase"|"toCapitalize")>
+	{System.out.println("ALTERA TEXTO -->\t" + image);}
+}
+TOKEN :
+{<Aleatorio : ("random" | "SecureRandom" | "srand")>
+	{System.out.println("ALEATORIO -->" + image);}
+}
+TOKEN :
+{<Valores: ("True"|"False"|"None") >
+  {System.out.println("VALORES -->\t" + image);}
+}
+TOKEN :
+{<Separador: (",") >
+  {System.out.println("SEPARADOR");}
+}
+TOKEN :
+{<MarcadorFinal: (";") >
+  {System.out.println("MARCADOR FIN");}
+}
+TOKEN :
+{<Escribe: ("print" | "println") >
+  {System.out.println("ESCRIBE -->\t" + image);}
+}
+TOKEN :
+{<Lee: ("input"|"next"|"nextInt"|"nextDouble"|"nextFloat"|"nextLine"|"nextBoolean"|"nextByte"|"nextShort"
+|"nextLong"|"nextBigInteger"|"nextBigDecimal") >
+  {System.out.println("LEE ENTRADA -->\t" + image);}
+}
+TOKEN: 
+{ <Procedimiento: ("proc" | "procedure")> 
+{ System.out.println("PROCEDIMIENTO--> " + image); }
+}
+TOKEN :
+{<FuncionesMatematicas : ("Math.abs" | "Math.acos" | "Math.asin" | "Math.scalb" | "Math.atan" | "Math.atan2" | "Math.cbrt"
+| "Math.ceil"| "Math.copySign" | "Math.cos"| "Math.cosh" | "Math.exp"| "Math.expm1" | "Math.floor"| "Math.getExponent"| "Math.hypot"
+| "Math.IEEEremainder" | "Math.log" | "Math.log10" | "Math.log1p" | "Math.max" | "Math.min" | "Math.nextAfter"| "Math.nextUp"
+| "Math.pow"| "Math.random" | "Math.rint" | "Math.round" | "Math.scalb" | "Math.signum"| "Math.sin"|  "Math.sinh"| "Math.sqrt"
+|"Math.tan" | "Math.tanh" | "Math.toDegrees" | "Math.toRadians" | "Math.ulp") >
+  {System.out.println("FUNCIONES MATEMATICAS -->\t" + image);}
+}
+TOKEN :
+{<Visible : ("setVisible")>
+	{System.out.println("MUESTRA VENTANA");}
+}
+TOKEN :
+{<tamVentana : ("setSize")>
+	{System.out.println("TAMAÑO VENTANA");}
+}
+TOKEN :
+{<Estructura : ("list"|"dict"|"set"|"tuple")>
+	{System.out.println("ESTRUCTURA");}
+}
+TOKEN :
+{<Proteccion : ("private" | "protected" | "public") >
+  {System.out.println("PROTECCION -->\t" + image);}
+}
+TOKEN :
+{<Asignacion : ("=" | "+=" | "-=" | "*=" | "/=" | "%=") >
+  {System.out.println("OPERADOR ASIGNACION -->\t" + image);}
+}
+TOKEN :
+{<AsignacionBit : ( "&=" | "|=" | "^=") >
+  {System.out.println("OPERADOR BIT -->\t" + image);}
+}
+TOKEN :
+{<AsignacionDesplazamientoBit : ( ">>=" | "<<=" | ">>>=")>
+  {System.out.println("OPERADOR DESPLAZAMIENTO  -->\t" + image);}
+}
+TOKEN :
+{<ParIzquierdo : ("(") >
+  {System.out.println("PARENTESIS IZQUIERDO");}
+}
+TOKEN :
+{<ParDerecho : (")") >
+  {System.out.println("PARENTESIS DERECHO");}
+}
+TOKEN :
+{<LlaveIzq : ("{")>
+  {System.out.println("LLAVE IZQUIERDA");}
+}
+TOKEN :
+{<LlaveDer : ("}") >
+  {System.out.println("LLAVE DERECHA");}
+}
+TOKEN :
+{<CorcheteDer : ("]") >
+  {System.out.println("CORCHETE DERECHO");}
+}
+TOKEN :
+{<CorcheteIzq : ("[") >
+  {System.out.println("CORCHETE IZQUIERDO");}
+}
+TOKEN :
+{<Ciclos: ("for" | "while" | "do") >
+  {System.out.println("CICLOS  -->\t" + image);}
+}
+TOKEN :
+{<Pregunta: ("assert"|"elif"|"if"|"switch"|"File.zero?" 
+| "File.file?"|"File.directory?"|"File.readable?" 
+| "File.writable?" | "File.executable?"|"file.eof?" 
+| "File.exist?"|"in"|"is"|"try"|"isFinite" 
+| "isInteger"|"isSafeInteger")>
+  {System.out.println("PREGUNTA -->\t" + image);}
+}
+TOKEN :
+{<PreguntaCondicion : ("remove_if")>
+	{System.out.println("ELIMINA CON CONDICION -->\t" + image);}
+}
+TOKEN :
+{<Consecuencia: ("case"|"default"|"catch"| "except")>
+  {System.out.println("CONSECUENCIA -->\t" + image);}
+}
+TOKEN :
+{<AgregaElemento : ("push_back"|"push_front"|"insert")>
+	{System.out.println("AGREGA ELEMENTO -->\t" + image);}
+}
+TOKEN :
+{<Combina : ("merge")>
+	{System.out.println("COMBINA LISTAS");}
+}
+TOKEN :
+{<MueveElemento : ("splice")>
+	{System.out.println("MUEVE ELEMENTO");}
+}
+TOKEN :
+{<AgregaBorraElemento : ("assign")>
+	{System.out.println("BORRA Y AGREGA");}
+}
+TOKEN :
+{<EliminaElemento : ("del"|"pop"|"pop_back"|"pop_front"|"erase"|"clear"|"remove")>
+  {System.out.println("ELIMINA ELEMENTO -->\t" + image);}
+}
+TOKEN :
+{<Inspecciona : ("min"|"max"|"len"|"back"|"front"|"max_size"|"size"|"empty"|"contains"|"startsWith"|"endsWith"
+|"indexOf"|"lastIndexOf")>
+  {System.out.println("INSPECCIONA -->\t" + image);}
+}
+TOKEN :
+{<Modifica : ("reversed"|"sorted"|"reverse"|"resize"|"sort"|"swap"|"unique")>
+  {System.out.println("MODIFICA -->\t" + image);}
+}
+TOKEN :
+{<Iteradores : ("begin"|"end"|"rbegin"|"rend")>
+  {System.out.println("ITERA -->\t" + image);}
+}
+TOKEN :
+{<Volatil: ("volatile")>
+  {System.out.println("ESPECIFICADOR VOLATILE -->\t" + image);}
+}
+TOKEN :
+{<Mutable: ("mutable")>
+  {System.out.println("CALIFICADOR MUTABLE -->\t" + image);}
+}
+TOKEN :
+{<Treat: ("thread_local")>
+  {System.out.println("ESPECIFICADOR THREAD_LOCAL -->\t" + image);}
+}
+TOKEN :
+{<Registrar: ("register")>
+{System.out.println("ESPECIFICADOR REGISTER -->\t" + image);}
+}
+TOKEN :
+{<Automatico: ("auto")>
+  {System.out.println("ESPECIFICADOR AUTOMATICO -->\t" + image);}
+}
+TOKEN :
+{<Constante : ("const")>
+  {System.out.println("CONSTANTE");}
+}
+TOKEN :
+{<VariableLet : ("let")>
+  {System.out.println("VARIABLE LOCAL");}
+}
+TOKEN :
+{<VariableGlobal : ("var")>
+  {System.out.println("VARIABLE GLOBAL");}
+}
+TOKEN :
+{<ReduceSobrecarga : ("inline")>
+  {System.out.println("REDUCE SOBRECARGA");}
+}
+TOKEN :
+{<EvaluaComp : ("constexpr")>
+  {System.out.println("EVALUA EN TIEMPO COMPILACION");}
+}
+TOKEN :
+{<EvitaConv : ("explicit")>
+  {System.out.println("EVITA CONVERSIONES");}
+}
+TOKEN :
+{<NoExcepcion : ("noexcept")>
+  {System.out.println("NO EXCEPCIONES");}
+}
+TOKEN :
+{<Sobrecarga : ("override")>
+  {System.out.println("SOBREESCRIBE FUNCION");}
+}
+TOKEN :
+{<Operador : ("operator")>
+  {System.out.println("SOBRECARGA OPERADOR");}
+}
+TOKEN :
+{<Referencia : ("this")>
+  {System.out.println("REFERENCIA");}
+}
+TOKEN :
+{<GestionTipos : ("decltype"|"typeid")>
+  {System.out.println("GESTIÓN TIPOS -->\t" + image);}
+}
+TOKEN :
+{<DefineEstruct : ("union")>
+  {System.out.println("DEFINE ESTRUCTURA");}
+}
+TOKEN :
+{<ControlFlujo : ("break"|"continue")>
+  {System.out.println("CONTROL FLUJO -->\t" + image);}
+}
+TOKEN :
+{<Salta : ("goto")>
+  {System.out.println("SALTA ETIQUETA");}
+}
+TOKEN :
+{<DevuelveGuarda : ("yield")>
+  {System.out.println("DEVUELVE Y GUARDA");}
+}
+TOKEN :
+{<Alineacion : ("alignas"|"alignof")>
+  {System.out.println("ALINEACIÓN");}
+}
+TOKEN :
+{<Asercion : ("static_assert")>
+  {System.out.println("ASERCIONES");}
+}
+TOKEN :
+{<GestionMemoria : ("auto_ptr"|"shared_ptr"|"unique_ptr"|"weak_ptr"|"nullptr")>
+  {System.out.println("GESTIÓN MEMORIA -->\t" + image);}
+}
+TOKEN :
+{<GestionTiposCasting : ("dynamic_cast"|"const_cast"|"reinterpret_cast")>
+  {System.out.println("CASTING -->\t" + image);}
+}
+TOKEN :
+{<ManejoExcepciones : ("throw"|"throws"|"raise")>
+  {System.out.println("MANEJO EXCEPCIONES -->\t" + image);}
+}
+TOKEN :
+{<EjecutaBloque : ("finally")>
+  {System.out.println("EJECUTA BLOQUE CODIGO");}
+}
+TOKEN :
+{<MetodosFile : ("File.new"|"File.open"|"File.readlines"|"File.write"|"File.binwrite"|"File.foreach"
+|"File.delete"|"File.rename"|"File.size"|"File.join"|"File.stat")>
+  {System.out.println("METODOS CLASE FILE -->\t" + image);}
+}
+TOKEN :
+{<Excepciones : ("SyntaxError"|"TypeError"|"ValueError"|"IndexError"|"KeyError"|"NameError"|"AttributeError"|"ZeroDivisionError"|"IOError"|
+ "ImportError"|"ModuleNotFoundError"|"FileNotFoundError"|"MemoryError"|"OverflowError"|"RuntimeError"|"NotImplementedError"|"RecursionError"|"AssertionError")> 
+  {System.out.println("EXCEPCIONES -->\t" + image);}
+}
+TOKEN :
+{<ManejoRutas : ("File.expand_path"|"File.realpath")>
+  {System.out.println("MANEJO RUTAS -->\t" + image);}
+}
+TOKEN :
+{<InstanciasFile : ("file.close"|"file.read"|"file.flush"|"file.rewind"|"file.seek"|"file.pos")>
+  {System.out.println("METODOS INSTANCIA FILE -->\t" + image);}
+}
+TOKEN :
+{<MetodosTime : ("Time.now"|"Time.new"|"Time.at"|"Time.utc"|"Time.local"|"Time.gm")>
+  {System.out.println("METODOS CLASE TIME -->\t" + image);}
+}
+TOKEN :
+{<InstanciasTime : ("time.year"|"time.month"|"time.day"|"time.hour"| "time.min" 
+|"time.sec"|"time.usec"|"time.zone"|"time.getutc")>
+  {System.out.println("METODOS INSTANCIA TIME -->\t" + image);}
+}
+TOKEN :
+{<TiposdeDatos : ("char"|"double"|"enum"|"float"|"int"|"long"|"short"|"boolean"|"complex")> 
+  {System.out.println("TIPOS DATO -->\t" + image);}
+}
+TOKEN :
+{<MetodoEstatico : ("static")>
+	{System.out.println("METODO ESTATICO");}
+}
+TOKEN :
+{<MetodoVoid : ("void")>
+	{System.out.println("METODO SIN RETORNO");}
+}
+TOKEN :
+{<MetodoMain : ("main")>
+	{System.out.println("METODO ENTRADA");}
+}
+TOKEN :
+{<Clase : ("class")>
+	{System.out.println("DEFINE CLASE");}
+}
+TOKEN :
+{<Paquete : ("Package")>
+	{System.out.println("DEFINE PAQUETE");}
+}
+TOKEN :
+{<Argumentos : ("args")>
+	{System.out.println("ARGUMENTOS");}
+}
+TOKEN :
+{<Inter : ("interface")>
+	{System.out.println("ESTRUCTURA");}
+}
+TOKEN :
+{<IDENTIFICADOR : (["a"-"z","A"-"Z","_"] (["a"-"z","A"-"Z","0"-"9","_"])*) >
+    {Buena.lista.add(" " + image);
+    System.out.println("IDENTIFICADOR -->\t" + Buena.lista.indexOf(" " + image));
+    }
+}
+
+void Inicio() :
+{}
+{
+  (<OperadoresAritmeticos> | <OperadoresLogicos>| <ComparacionLogica> | 
+  <FuncionesMatematicas> | <Proteccion> | <Asignacion> | <AsignacionBit> 
+  | <AsignacionDesplazamientoBit> | <ParIzquierdo> | <ParDerecho>
+  | <LlaveIzq> | <LlaveDer> | <CorcheteDer> | <CorcheteIzq> 
+  | <TiposdeDatos> | <Ciclos> | <Excepciones> | <Pregunta> 
+  | <Consecuencia> | <AgregaElemento> | <Combina> | <MueveElemento>
+  | <AgregaBorraElemento> | <PreguntaCondicion> | <EliminaElemento>
+  |<Inspecciona> | <Modifica> | <Iteradores> | <Volatil> 
+  | <Mutable> | <Treat> | <Registrar> | <Automatico> | <Constante> 
+  | <VariableLet> | <VariableGlobal> | <ReduceSobrecarga> 
+  | <EvaluaComp> | <EvitaConv> | <NoExcepcion> | <Sobrecarga> 
+  | <Operador> | <Referencia> | <GestionTipos> | <DefineEstruct>
+  | <ControlFlujo> |<Salta> | <DevuelveGuarda> | <Alineacion> 
+  | <Asercion> | <GestionMemoria> | <GestionTiposCasting> 
+  | <ManejoExcepciones> | <EjecutaBloque> | <MetodosFile> 
+  | <ManejoRutas> | <InstanciasFile> | <MetodosTime> 
+  | <InstanciasTime> | <Valores> | <Separador> |<MarcadorFinal> 
+  | <Escribe> | <Lee> | <MetodoEstatico> | <MetodoVoid> 
+  | <MetodoMain> | <AlteraTexto> | <Aleatorio> | <Clase>
+  | <Paquete> | <Argumentos> | <Visible> | <tamVentana>
+  | <Estructura> | <Inter> | <IDENTIFICADOR> | <Procedimiento>)+<EOF>
+}
